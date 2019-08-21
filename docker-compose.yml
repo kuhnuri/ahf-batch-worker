@@ -1,0 +1,5 @@
+version: '2.4'
+services:
+  worker:
+    image: "jelovirt/kuhnuri_batch_ahf_worker:${TAG}"
+    build: .
