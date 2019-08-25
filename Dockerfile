@@ -5,10 +5,12 @@ COPY docker/main.go .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o main .
 
 FROM antennahouse/ahfcmd:6
-#RUN apk --update --upgrade add bash cairo pango gdk-pixbuf py3-cffi py3-pillow py-lxml font-noto ca-certificates \
-#    && pip3 install ahf \
-#    && rm -rf /var/cache/apk/*
+USER root
+RUN apt-get -y update \
+    && apt-get -y install --no-install-recommends fonts-noto \
+    && apt-get -y clean \
+    && rm -rf /var/lib/apt/lists/*
+USER ahf
 WORKDIR /opt/app
 COPY --from=builder /go/src/github.com/kuhnuri/batch-ahf/main .
-COPY AHFormatter.lic /AHFormatter/etc/AHFormatter.lic
 ENTRYPOINT ["./main"]
