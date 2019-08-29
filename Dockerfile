@@ -7,7 +7,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -o main .
 FROM antennahouse/ahfcmd:6
 USER root
 RUN apt-get -y update \
-    && apt-get -y install --no-install-recommends fonts-noto \
+    && apt-get -y install --no-install-recommends ca-certificates fonts-noto \
     && apt-get -y clean \
     && rm -rf /var/lib/apt/lists/*
 USER ahf

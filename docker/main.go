@@ -56,14 +56,15 @@ func convert(srcDir string, dstDir string) error {
 			}
 			dst := kuhnuri.WithExt(filepath.Join(dstDir, rel), ".pdf")
 			dir := filepath.Dir(dst)
-			if err :=kuhnuri.MkDirs(dir); err != nil {
+			if err := kuhnuri.MkDirs(dir); err != nil {
 				return err
 			}
 			fmt.Printf("INFO: Convert %s %s\n", src, dst)
 
 			cmd := exec.Command("/AHFormatter/bin/AHFCmd",
 				"-d", src,
-				"-o", dst)
+				"-o", dst,
+				"-x", "4")
 			cmd.Stdout = os.Stdout
 			cmd.Stderr = os.Stderr
 
